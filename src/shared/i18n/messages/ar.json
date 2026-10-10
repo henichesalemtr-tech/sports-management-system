@@ -833,30 +833,56 @@
       "auth": "الأمان"
     },
     "keys": {
-      "org.name": "اسم المنظمة",
-      "org.address": "عنوان المنظمة",
-      "org.phone": "هاتف المنظمة",
-      "org.logoUrl": "رابط شعار المنظمة",
-      "currency.code": "رمز العملة",
-      "currency.decimals": "الخانات العشرية",
+      "org": {
+        "name": "اسم المنظمة",
+        "address": "عنوان المنظمة",
+        "phone": "هاتف المنظمة",
+        "logoUrl": "رابط شعار المنظمة"
+      },
+      "currency": {
+        "code": "رمز العملة",
+        "decimals": "الخانات العشرية"
+      },
       "timezone": "المنطقة الزمنية",
-      "fiscal.startMonth": "شهر بداية السنة المالية",
-      "number.system": "نظام الأرقام",
-      "attendance.lateMinutes": "حد التأخر (دقائق)",
-      "attendance.late_threshold_minutes": "حد التأخر (دقائق)",
-      "attendance.edit_window_minutes": "نافذة تعديل الحضور (دقائق)",
-      "attendance.consecutiveAbsenceAlert": "تنبيه الغياب المتتالي",
-      "attendance.consecutive_absence_alert": "تنبيه الغياب المتتالي",
-      "subscription.expiringDays": "أيام تنبيه انتهاء الاشتراك",
-      "payment.allowOverpay": "السماح بالدفع الزائد",
-      "receipt.template": "قالب الوصل",
-      "scan.dedupSeconds": "ثواني منع تكرار المسح",
-      "scan.expired_subscription_policy": "سياسة الاشتراك المنتهي عند المسح",
-      "scan.rate_limit_per_minute": "حد المسح في الدقيقة",
-      "athletes.registrationFormat": "صيغة رقم التسجيل",
-      "auth.totpEnabled": "التحقق الثنائي TOTP",
-      "sessions.generate_ahead_days": "أيام توليد الحصص مسبقًا",
-      "age.reference_mode": "مرجع حساب العمر"
+      "fiscal": {
+        "startMonth": "شهر بداية السنة المالية"
+      },
+      "number": {
+        "system": "نظام الأرقام"
+      },
+      "attendance": {
+        "lateMinutes": "حد التأخر (دقائق)",
+        "late_threshold_minutes": "حد التأخر (دقائق)",
+        "edit_window_minutes": "نافذة تعديل الحضور (دقائق)",
+        "consecutiveAbsenceAlert": "تنبيه الغياب المتتالي",
+        "consecutive_absence_alert": "تنبيه الغياب المتتالي"
+      },
+      "subscription": {
+        "expiringDays": "أيام تنبيه انتهاء الاشتراك"
+      },
+      "payment": {
+        "allowOverpay": "السماح بالدفع الزائد"
+      },
+      "receipt": {
+        "template": "قالب الوصل"
+      },
+      "scan": {
+        "dedupSeconds": "ثواني منع تكرار المسح",
+        "expired_subscription_policy": "سياسة الاشتراك المنتهي عند المسح",
+        "rate_limit_per_minute": "حد المسح في الدقيقة"
+      },
+      "athletes": {
+        "registrationFormat": "صيغة رقم التسجيل"
+      },
+      "auth": {
+        "totpEnabled": "التحقق الثنائي TOTP"
+      },
+      "sessions": {
+        "generate_ahead_days": "أيام توليد الحصص مسبقًا"
+      },
+      "age": {
+        "reference_mode": "مرجع حساب العمر"
+      }
     },
     "saveSetting": "حفظ",
     "saved": "تم حفظ الإعداد",

@@ -824,30 +824,56 @@
       "auth": "Sécurité"
     },
     "keys": {
-      "org.name": "Nom de l'organisation",
-      "org.address": "Adresse de l'organisation",
-      "org.phone": "Téléphone de l'organisation",
-      "org.logoUrl": "URL du logo de l'organisation",
-      "currency.code": "Code devise",
-      "currency.decimals": "Décimales",
+      "org": {
+        "name": "Nom de l'organisation",
+        "address": "Adresse de l'organisation",
+        "phone": "Téléphone de l'organisation",
+        "logoUrl": "URL du logo de l'organisation"
+      },
+      "currency": {
+        "code": "Code devise",
+        "decimals": "Décimales"
+      },
       "timezone": "Fuseau horaire",
-      "fiscal.startMonth": "Mois de début d'exercice",
-      "number.system": "Système de numération",
-      "attendance.lateMinutes": "Seuil de retard (minutes)",
-      "attendance.late_threshold_minutes": "Seuil de retard (minutes)",
-      "attendance.edit_window_minutes": "Fenêtre de modification de présence (minutes)",
-      "attendance.consecutiveAbsenceAlert": "Alerte d'absences consécutives",
-      "attendance.consecutive_absence_alert": "Alerte d'absences consécutives",
-      "subscription.expiringDays": "Jours d'alerte avant expiration",
-      "payment.allowOverpay": "Autoriser le trop-perçu",
-      "receipt.template": "Modèle de reçu",
-      "scan.dedupSeconds": "Secondes anti-doublon de scan",
-      "scan.expired_subscription_policy": "Politique d'abonnement expiré au scan",
-      "scan.rate_limit_per_minute": "Limite de scans par minute",
-      "athletes.registrationFormat": "Format du numéro d'inscription",
-      "auth.totpEnabled": "Authentification à deux facteurs (TOTP)",
-      "sessions.generate_ahead_days": "Jours de génération anticipée des séances",
-      "age.reference_mode": "Mode de référence de l'âge"
+      "fiscal": {
+        "startMonth": "Mois de début d'exercice"
+      },
+      "number": {
+        "system": "Système de numération"
+      },
+      "attendance": {
+        "lateMinutes": "Seuil de retard (minutes)",
+        "late_threshold_minutes": "Seuil de retard (minutes)",
+        "edit_window_minutes": "Fenêtre de modification de présence (minutes)",
+        "consecutiveAbsenceAlert": "Alerte d'absences consécutives",
+        "consecutive_absence_alert": "Alerte d'absences consécutives"
+      },
+      "subscription": {
+        "expiringDays": "Jours d'alerte avant expiration"
+      },
+      "payment": {
+        "allowOverpay": "Autoriser le trop-perçu"
+      },
+      "receipt": {
+        "template": "Modèle de reçu"
+      },
+      "scan": {
+        "dedupSeconds": "Secondes anti-doublon de scan",
+        "expired_subscription_policy": "Politique d'abonnement expiré au scan",
+        "rate_limit_per_minute": "Limite de scans par minute"
+      },
+      "athletes": {
+        "registrationFormat": "Format du numéro d'inscription"
+      },
+      "auth": {
+        "totpEnabled": "Authentification à deux facteurs (TOTP)"
+      },
+      "sessions": {
+        "generate_ahead_days": "Jours de génération anticipée des séances"
+      },
+      "age": {
+        "reference_mode": "Mode de référence de l'âge"
+      }
     },
     "saveSetting": "Enregistrer",
     "saved": "Paramètre enregistré",

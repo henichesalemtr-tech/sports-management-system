@@ -6,35 +6,7 @@
    خط Cairo المحلي — ضع ملفات woff2 في public/fonts/ (انظر src/app/fonts.ts).
    عند غياب الملفات يتصفح المتصفح الطلب بهدوء وتتولى سلسلة التراجع العرض.
    ============================================================ */
-@font-face {
-  font-family: 'Cairo';
-  src: url('/fonts/Cairo-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Cairo';
-  src: url('/fonts/Cairo-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Cairo';
-  src: url('/fonts/Cairo-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Cairo';
-  src: url('/fonts/Cairo-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* الخط المحلي اختياري؛ عند غيابه نستخدم سلسلة الخطوط النظامية العربية. */
 /* ============================================================
    رموز التصميم (Design Tokens) — تُستهلك عبر tailwind.config.ts
    ============================================================ */

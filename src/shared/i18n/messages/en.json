@@ -833,30 +833,56 @@
       "auth": "Security"
     },
     "keys": {
-      "org.name": "Organization name",
-      "org.address": "Organization address",
-      "org.phone": "Organization phone",
-      "org.logoUrl": "Organization logo URL",
-      "currency.code": "Currency code",
-      "currency.decimals": "Decimal digits",
+      "org": {
+        "name": "Organization name",
+        "address": "Organization address",
+        "phone": "Organization phone",
+        "logoUrl": "Organization logo URL"
+      },
+      "currency": {
+        "code": "Currency code",
+        "decimals": "Decimal digits"
+      },
       "timezone": "Timezone",
-      "fiscal.startMonth": "Fiscal year start month",
-      "number.system": "Numbering system",
-      "attendance.lateMinutes": "Late threshold (minutes)",
-      "attendance.late_threshold_minutes": "Late threshold (minutes)",
-      "attendance.edit_window_minutes": "Attendance edit window (minutes)",
-      "attendance.consecutiveAbsenceAlert": "Consecutive absence alert",
-      "attendance.consecutive_absence_alert": "Consecutive absence alert",
-      "subscription.expiringDays": "Subscription expiry alert days",
-      "payment.allowOverpay": "Allow overpayment",
-      "receipt.template": "Receipt template",
-      "scan.dedupSeconds": "Scan dedup seconds",
-      "scan.expired_subscription_policy": "Expired subscription scan policy",
-      "scan.rate_limit_per_minute": "Scan rate limit per minute",
-      "athletes.registrationFormat": "Registration number format",
-      "auth.totpEnabled": "Two-factor authentication (TOTP)",
-      "sessions.generate_ahead_days": "Session generation ahead days",
-      "age.reference_mode": "Age reference mode"
+      "fiscal": {
+        "startMonth": "Fiscal year start month"
+      },
+      "number": {
+        "system": "Numbering system"
+      },
+      "attendance": {
+        "lateMinutes": "Late threshold (minutes)",
+        "late_threshold_minutes": "Late threshold (minutes)",
+        "edit_window_minutes": "Attendance edit window (minutes)",
+        "consecutiveAbsenceAlert": "Consecutive absence alert",
+        "consecutive_absence_alert": "Consecutive absence alert"
+      },
+      "subscription": {
+        "expiringDays": "Subscription expiry alert days"
+      },
+      "payment": {
+        "allowOverpay": "Allow overpayment"
+      },
+      "receipt": {
+        "template": "Receipt template"
+      },
+      "scan": {
+        "dedupSeconds": "Scan dedup seconds",
+        "expired_subscription_policy": "Expired subscription scan policy",
+        "rate_limit_per_minute": "Scan rate limit per minute"
+      },
+      "athletes": {
+        "registrationFormat": "Registration number format"
+      },
+      "auth": {
+        "totpEnabled": "Two-factor authentication (TOTP)"
+      },
+      "sessions": {
+        "generate_ahead_days": "Session generation ahead days"
+      },
+      "age": {
+        "reference_mode": "Age reference mode"
+      }
     },
     "saveSetting": "Save",
     "saved": "Setting saved",

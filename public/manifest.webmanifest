@@ -1,0 +1,12 @@
+{
+  "name": "نظام إدارة رياضية",
+  "short_name": "إدارة رياضية",
+  "description": "نظام إدارة رياضية للنوادي والأكاديميات",
+  "start_url": "/ar/dashboard",
+  "display": "standalone",
+  "background_color": "#f7faf8",
+  "theme_color": "#16805f",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": []
+}
