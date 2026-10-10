@@ -8,14 +8,13 @@
  *
  * عدة عمليات/Workers لنفس القاعدة آمنة للسبب نفسه.
  */
-import { runJobsByName } from './index';
+import { runInProcessJobs } from './in-process';
 
 /**
  * المهام التي تُشغَّل داخل العملية: التنبيهات المالية/الاشتراكات والوثائق.
  * استُثنيت backup (تكتب ملفات وتستهلك pg_dump) وreconcile (تصحيح جماعي أثقل) —
  * تبقى للعامل/CRON المخصص.
  */
-const IN_PROCESS_JOBS = ['expire-subscriptions', 'generate-notifications', 'expiring-documents'];
 
 // حارس عبر globalThis: في وضع التطوير تُعاد تحميل الوحدات كثيرًا، والمؤقت يجب أن يُنشأ مرة واحدة.
 const GUARD = Symbol.for('app.inProcessJobsStarted');
@@ -32,7 +31,7 @@ export function startInProcessJobs(intervalMinutes: number): void {
     if (running) return;
     running = true;
     try {
-      const { results } = await runJobsByName(IN_PROCESS_JOBS);
+      const { results } = await runInProcessJobs();
       for (const [name, outcome] of Object.entries(results)) {
         if (outcome.status !== 'SUCCESS') continue;
         if (outcome.itemsProcessed > 0) {

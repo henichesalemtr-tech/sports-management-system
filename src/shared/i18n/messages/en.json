@@ -89,7 +89,10 @@
     "deleted": "Deleted",
     "openNavigation": "Open navigation",
     "closeNavigation": "Close navigation",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "imported": "imported",
+    "skipped": "skipped",
+    "selectAll": "Select all"
   },
   "days": {
     "SUN": "Sunday",
@@ -328,7 +331,13 @@
     "basicInfo": "Basic information",
     "contactInfo": "Contact information",
     "medicalInfo": "Medical information",
-    "createSuccess": "Athlete {name} created with number {reg}"
+    "createSuccess": "Athlete {name} created with number {reg}",
+    "deleteSelected": "Delete selected",
+    "offlineMode": "You are offline. Changes are saved locally and will sync automatically when the connection returns.",
+    "importTitle": "Import athletes from Excel",
+    "importHint": "Choose an XLSX or CSV file containing athlete information. Rows and duplicates are validated before saving.",
+    "importFile": "Athletes file",
+    "markedCount": "{count} athletes marked"
   },
   "parent": {
     "title": "Parent",

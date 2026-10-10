@@ -275,6 +275,16 @@ export const athleteService = {
     });
   },
 
+  /** حذف مرن متعدد — يُنفّذ بالتتابع حتى تبقى أخطاء version واضحة لكل سجل. */
+  async removeMany(items: Array<{ id: string; version: number }>, meta: Meta): Promise<{ ids: string[] }> {
+    const ids: string[] = [];
+    for (const item of items) {
+      const result = await athleteService.remove(item.id, item.version, meta);
+      ids.push(result.id);
+    }
+    return { ids };
+  },
+
   /** استعادة رياضي محذوف (يتطلب athletes.restore — يُفحص في المسار). */
   async restore(id: string, meta: Meta): Promise<{ id: string }> {
     return prisma.$transaction(async (tx) => {

@@ -55,6 +55,9 @@ export const updateAthleteSchema = createAthleteSchema
 export const athleteParamsSchema = z.object({ id: uuidSchema });
 
 export const deleteAthleteBodySchema = z.object({ version: versionSchema });
+export const bulkDeleteAthletesSchema = z.object({
+  items: z.array(z.object({ id: uuidSchema, version: versionSchema })).min(1).max(100),
+});
 
 export const restoreAthleteBodySchema = z.object({ version: versionSchema.optional() });
 
@@ -82,3 +85,4 @@ export type UpdateAthleteInput = z.infer<typeof updateAthleteSchema>;
 export type AthleteListQuery = z.infer<typeof athleteListQuerySchema>;
 export type AthleteDuplicatesQuery = z.infer<typeof athleteDuplicatesQuerySchema>;
 export type AthleteParentLink = z.infer<typeof athleteParentLinkSchema>;
+export type BulkDeleteAthletesInput = z.infer<typeof bulkDeleteAthletesSchema>;

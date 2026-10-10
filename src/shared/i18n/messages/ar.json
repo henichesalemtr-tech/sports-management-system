@@ -89,7 +89,10 @@
     "deleted": "محذوف",
     "openNavigation": "فتح القائمة",
     "closeNavigation": "إغلاق القائمة",
-    "skipToContent": "تجاوز إلى المحتوى"
+    "skipToContent": "تجاوز إلى المحتوى",
+    "imported": "تم استيراده",
+    "skipped": "تم تجاوزه",
+    "selectAll": "تحديد الكل"
   },
   "days": {
     "SUN": "الأحد",
@@ -328,7 +331,13 @@
     "basicInfo": "البيانات الأساسية",
     "contactInfo": "معلومات الاتصال",
     "medicalInfo": "المعلومات الطبية",
-    "createSuccess": "تم إنشاء الرياضي {name} برقم {reg}"
+    "createSuccess": "تم إنشاء الرياضي {name} برقم {reg}",
+    "deleteSelected": "حذف المحدد",
+    "offlineMode": "أنت تعمل دون اتصال. ستُحفظ التغييرات محليًا وتُزامن تلقائيًا عند عودة الشبكة.",
+    "importTitle": "استيراد الرياضيين من Excel",
+    "importHint": "اختر ملف XLSX أو CSV يحتوي معلومات الرياضيين. سيجري التحقق من الصفوف والتكرارات قبل الحفظ.",
+    "importFile": "ملف الرياضيين",
+    "markedCount": "تم تحديد {count} رياضيًا"
   },
   "parent": {
     "title": "ولي الأمر",
