@@ -8,9 +8,10 @@
  *  - تشغيل `npm run seed` أولًا (طرق الدفع/فئات المصاريف/الفئات العمرية/الإعدادات).
  *  - قاعدة بيانات PostgreSQL مطبَّقة عليها الهجرة + prisma/raw-constraints.sql.
  *
- * ينشئ: مدير تجريبي، أنشطة، قاعة، مدربَين، مجموعتين، أولياء، 8 رياضيين،
+ * ينشئ: مدير تجريبي، أنشطة، قاعة، مدربَين، مجموعتين، أولياء، 40 رياضيًا (20 أصاغر و20 أكابر)،
  * أنواع اشتراك (شهري/حصص)، اشتراكات (أحدها بخصم 10%)، دفعات بأرقام Idempotency،
  * حصص تدريب لـ 7 أيام، حضور جماعي لحصة اليوم، ومصروفين.
+ * يضيف 40 رياضيًا: 20 أصاغر و20 أكابر.
  *
  * التشغيل: npm run seed:demo
  * لم يُشغَّل هذا السكربت في بيئة التوثيق (لا يتوفر node/npm/postgres هنا) —
@@ -99,15 +100,25 @@ async function main(): Promise<void> {
     fullName: admin.fullName,
     linkedCoachId: null,
   };
-  const meta: Meta = { user, requestId: 'seed-demo', ip: '127.0.0.1', userAgent: 'seed-demo-script' };
+  const meta: Meta = {
+    user,
+    requestId: 'seed-demo',
+    ip: '127.0.0.1',
+    userAgent: 'seed-demo-script',
+  };
 
   // ---------- الفئات العمرية (من seed المرجعي) ----------
   const ageCats = await ageCategoryService.list({ page: 1, pageSize: 50 });
   if (ageCats.total === 0) {
     throw new Error('[seed-demo] لا توجد فئات عمرية — شغّل `npm run seed` أولًا.');
   }
-  const u14 = ageCats.items.find((c) => c.minAge !== null && c.minAge <= 13 && (c.maxAge ?? 99) >= 13);
-  const seniors = ageCats.items.find((c) => c.kind === 'SENIOR');
+  const minors =
+    ageCats.items.find((c) => c.name === 'أصاغر') ??
+    ageCats.items.find((c) => c.minAge !== null && c.minAge <= 11 && (c.maxAge ?? 99) >= 11);
+  const seniors =
+    ageCats.items.find((c) => c.name === 'أكابر') ?? ageCats.items.find((c) => c.kind === 'SENIOR');
+  if (!minors || !seniors)
+    throw new Error('[seed-demo] يجب توفر فئتي «أصاغر» و«أكابر» — شغّل `npm run seed` أولًا.');
 
   // ---------- الأنشطة ----------
   const football = await sportService.create(
@@ -126,21 +137,33 @@ async function main(): Promise<void> {
     meta,
   );
   const coach1 = await coachService.create(
-    { firstName: 'محمد', lastName: 'بن عيسى', phone: '0550000001', specialization: 'كرة القدم', sportIds: [football.id] },
+    {
+      firstName: 'محمد',
+      lastName: 'بن عيسى',
+      phone: '0550000001',
+      specialization: 'كرة القدم',
+      sportIds: [football.id],
+    },
     meta,
   );
   const coach2 = await coachService.create(
-    { firstName: 'سمير', lastName: 'قاسمي', phone: '0550000002', specialization: 'الجيدو', sportIds: [judo.id] },
+    {
+      firstName: 'سمير',
+      lastName: 'قاسمي',
+      phone: '0550000002',
+      specialization: 'الجيدو',
+      sportIds: [judo.id],
+    },
     meta,
   );
 
   // ---------- المجموعات ----------
   const group1 = await groupService.create(
     {
-      name: 'أشبال كرة القدم (تجريبية)',
-      code: 'DEMO-FOOT-U14',
+      name: 'أصاغر كرة القدم (تجريبية)',
+      code: 'DEMO-FOOT-U12',
       sportId: football.id,
-      ageCategoryId: u14?.id ?? null,
+      ageCategoryId: minors.id,
       coachId: coach1.id,
       venueId: venue.id,
       maxCapacity: 20,
@@ -155,10 +178,10 @@ async function main(): Promise<void> {
       name: 'الجيدو أكابر (تجريبية)',
       code: 'DEMO-JUDO-SR',
       sportId: judo.id,
-      ageCategoryId: seniors?.id ?? null,
+      ageCategoryId: seniors.id,
       coachId: coach2.id,
       venueId: null,
-      maxCapacity: 15,
+      maxCapacity: 25,
       trainingDays: ['SUN', 'TUE'],
       startTime: '19:00',
       endTime: '20:30',
@@ -182,19 +205,65 @@ async function main(): Promise<void> {
   );
 
   const athleteNames: Array<[string, string, 'MALE' | 'FEMALE', number]> = [
-    ['ياسين', 'حمداوي', 'MALE', 13],
-    ['أمينة', 'حمداوي', 'FEMALE', 12],
-    ['أيوب', 'زروقي', 'MALE', 14],
-    ['مريم', 'بلقاسم', 'FEMALE', 13],
-    ['إسলাম', 'قاسمي', 'MALE', 15],
-    ['ريان', 'بوعلام', 'MALE', 12],
-    ['ليناء', 'سعاد', 'FEMALE', 13],
+    // 20 رياضيًا في فئة الأصاغر (10–12 سنة)
+    ['ياسين', 'حمداوي', 'MALE', 10],
+    ['أمينة', 'حمداوي', 'FEMALE', 10],
+    ['أيوب', 'زروقي', 'MALE', 11],
+    ['مريم', 'بلقاسم', 'FEMALE', 11],
+    ['إسلام', 'قاسمي', 'MALE', 12],
+    ['ريان', 'بوعلام', 'MALE', 10],
+    ['ليناء', 'سعاد', 'FEMALE', 12],
+    ['نور', 'عمراني', 'FEMALE', 11],
+    ['حمزة', 'مراد', 'MALE', 12],
+    ['سارة', 'بن عمر', 'FEMALE', 10],
+    ['أنس', 'شريف', 'MALE', 11],
+    ['جنى', 'لعريبي', 'FEMALE', 12],
+    ['وليد', 'صالح', 'MALE', 10],
+    ['رؤى', 'منصوري', 'FEMALE', 11],
+    ['بلال', 'حسني', 'MALE', 12],
+    ['فرح', 'بوزيد', 'FEMALE', 10],
+    ['معاذ', 'خالد', 'MALE', 11],
+    ['تالا', 'قريشي', 'FEMALE', 12],
+    ['سليم', 'داودي', 'MALE', 10],
+    ['شيماء', 'رحماني', 'FEMALE', 11],
+    // 20 رياضيًا في فئة الأكابر (20–35 سنة)
     ['مهدي', 'عمراني', 'MALE', 20],
+    ['خالد', 'بن عيسى', 'MALE', 22],
+    ['عبد الرحمان', 'قاسمي', 'MALE', 24],
+    ['فاطمة', 'زروقي', 'FEMALE', 21],
+    ['سارة', 'حمودي', 'FEMALE', 23],
+    ['يوسف', 'بلحاج', 'MALE', 25],
+    ['إيمان', 'مرابط', 'FEMALE', 26],
+    ['مراد', 'بوعلام', 'MALE', 28],
+    ['نسرين', 'علاوي', 'FEMALE', 27],
+    ['رياض', 'سالمي', 'MALE', 30],
+    ['حورية', 'بن داود', 'FEMALE', 29],
+    ['كريم', 'شريف', 'MALE', 31],
+    ['أسماء', 'منصوري', 'FEMALE', 32],
+    ['طارق', 'لعريبي', 'MALE', 33],
+    ['سميرة', 'حسني', 'FEMALE', 34],
+    ['نبيل', 'بوزيد', 'MALE', 35],
+    ['ملاك', 'رحماني', 'FEMALE', 22],
+    ['وليد', 'خالد', 'MALE', 24],
+    ['هدى', 'قريشي', 'FEMALE', 26],
+    ['أيمن', 'داودي', 'MALE', 28],
   ];
+  if (
+    athleteNames.length !== 40 ||
+    athleteNames.slice(0, 20).some(([, , , age]) => age >= 18) ||
+    athleteNames.slice(20).some(([, , , age]) => age < 18)
+  ) {
+    throw new Error('[seed-demo] بيانات العرض يجب أن تحتوي 20 أصاغر و20 أكابر.');
+  }
   const parentIds = [father.id, mother.id, guardian.id];
   const athletes = [];
   for (let i = 0; i < athleteNames.length; i++) {
-    const [firstName, lastName, gender, age] = athleteNames[i] as [string, string, 'MALE' | 'FEMALE', number];
+    const [firstName, lastName, gender, age] = athleteNames[i] as [
+      string,
+      string,
+      'MALE' | 'FEMALE',
+      number,
+    ];
     const created = await athleteService.create(
       {
         firstName,
@@ -202,7 +271,7 @@ async function main(): Promise<void> {
         gender,
         birthDate: birthDateForAge(age),
         sportId: age >= 18 ? judo.id : football.id,
-        ageCategoryId: (age >= 18 ? seniors?.id : u14?.id) ?? null,
+        ageCategoryId: age >= 18 ? seniors.id : minors.id,
         parents: [
           {
             parentId: parentIds[i % parentIds.length] as string,
@@ -219,7 +288,7 @@ async function main(): Promise<void> {
     );
     athletes.push(created);
   }
-  console.log(`[seed-demo] رياضيات/رياضيون: ${athletes.length}`);
+  console.log(`[seed-demo] رياضيون: ${athletes.length} (أصاغر: 20، أكابر: 20)`);
 
   // ---------- أنواع الاشتراك ----------
   const monthlyType = await subscriptionTypeService.create(
@@ -248,7 +317,8 @@ async function main(): Promise<void> {
 
   // ---------- الاشتراكات ----------
   const cashMethod = await prisma.paymentMethod.findFirst({ where: { name: 'نقدًا' } });
-  if (!cashMethod) throw new Error('[seed-demo] طريقة الدفع «نقدًا» غير موجودة — شغّل `npm run seed` أولًا.');
+  if (!cashMethod)
+    throw new Error('[seed-demo] طريقة الدفع «نقدًا» غير موجودة — شغّل `npm run seed` أولًا.');
 
   const subscriptions = [];
   for (let i = 0; i < athletes.length; i++) {
@@ -359,9 +429,12 @@ async function main(): Promise<void> {
       { sessionId: todaySession.id, markAllPresent: true, entries: [], method: 'BULK' },
       meta,
     );
-    console.log(`[seed-demo] حضور جماعي: created=${result.created} skipped=${result.skipped.length}`);
+    console.log(
+      `[seed-demo] حضور جماعي: created=${result.created} skipped=${result.skipped.length}`,
+    );
   }
   void judoToday;
+  console.log(`[seed-demo] حصص تدريبية: ${sessionsCount}`);
 
   // ---------- المصاريف ----------
   const categories = await expenseCategoryService.list();
